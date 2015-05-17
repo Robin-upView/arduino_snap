@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/1286114937/I2Cdev.o \
 	${OBJECTDIR}/_ext/1085735333/MPU6050.o \
+	${OBJECTDIR}/_ext/1493333357/Servo.o \
 	${OBJECTDIR}/_ext/1987957681/Wire.o \
 	${OBJECTDIR}/_ext/1614257906/twi.o \
 	${OBJECTDIR}/dcm.o \
@@ -77,6 +78,11 @@ ${OBJECTDIR}/_ext/1085735333/MPU6050.o: nbproject/Makefile-${CND_CONF}.mk /usr/l
 	${MKDIR} -p ${OBJECTDIR}/_ext/1085735333
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1085735333/MPU6050.o /usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp
+
+${OBJECTDIR}/_ext/1493333357/Servo.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Servo/Servo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1493333357
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1493333357/Servo.o /usr/local/arduino1.0/libraries/Servo/Servo.cpp
 
 ${OBJECTDIR}/_ext/1987957681/Wire.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Wire/Wire.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1987957681

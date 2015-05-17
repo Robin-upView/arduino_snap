@@ -59,10 +59,10 @@ build: .build-post
 .build-post: .build-impl
 # Add your post 'build' code here...
 	avr-objcopy -O ihex ${CND_ARTIFACT_PATH_${CONF}} ${CND_ARTIFACT_PATH_${CONF}}.hex 
-	avr-size --mcu=atmega328 -C ${CND_ARTIFACT_PATH_${CONF}}
+	avr-size --mcu=atmega2560 -C ${CND_ARTIFACT_PATH_${CONF}}
 	
  upload: .build-post
-	avrdude -C/usr/local/CrossPack-AVR/etc/avrdude.conf -patmega328p -carduino -P/dev/tty.usbserial-A4038CVC -b57600 -D -F -V -Uflash:w:${CND_ARTIFACT_PATH_${CONF}}.hex:i 
+	avrdude -C/usr/local/CrossPack-AVR/etc/avrdude.conf -patmega2560 -cwiring -P/dev/cu.usbserial-A502FX9P -b115200 -D -V -Uflash:w:${CND_ARTIFACT_PATH_${CONF}}.hex:i 
 # clean
 clean: .clean-post
 

@@ -33,6 +33,8 @@
     <itemPath>/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h</itemPath>
+    <itemPath>/usr/local/arduino1.0/libraries/Servo/Servo.cpp</itemPath>
+    <itemPath>/usr/local/arduino1.0/libraries/Servo/Servo.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/Wire.cpp</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/Wire.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/utility/twi.c</itemPath>
@@ -52,7 +54,7 @@
             <pElem>/usr/local/arduino1.0/arduino/cores/arduino</pElem>
             <pElem>../control_law_arduino</pElem>
           </incDir>
-          <commandLine>-Os -Wall -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=100</commandLine>
+          <commandLine>-Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105</commandLine>
         </cTool>
         <ccTool>
           <incDir>
@@ -63,8 +65,9 @@
             <pElem>/usr/local/arduino1.0/libraries/MPU6050</pElem>
             <pElem>/usr/local/arduino1.0/libraries/I2Cdev</pElem>
             <pElem>../control_law</pElem>
+            <pElem>/usr/local/arduino1.0/libraries/Servo</pElem>
           </incDir>
-          <commandLine>-Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=100</commandLine>
+          <commandLine>-Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105</commandLine>
         </ccTool>
         <linkerTool>
           <commandlineTool>avr-gcc</commandlineTool>
@@ -107,7 +110,7 @@
             </linkerLibProjectItem>
             <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
-          <commandLine>-Os -Wl,--gc-sections -mmcu=atmega328p</commandLine>
+          <commandLine>-Os -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
       <item path="/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp"
@@ -126,6 +129,16 @@
             flavor2="0">
       </item>
       <item path="/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/usr/local/arduino1.0/libraries/Servo/Servo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/usr/local/arduino1.0/libraries/Servo/Servo.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -197,6 +210,16 @@
             flavor2="0">
       </item>
       <item path="/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/usr/local/arduino1.0/libraries/Servo/Servo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/usr/local/arduino1.0/libraries/Servo/Servo.h"
             ex="false"
             tool="3"
             flavor2="0">

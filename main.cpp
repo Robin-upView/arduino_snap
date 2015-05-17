@@ -1,16 +1,18 @@
 #include <Arduino.h>
+
+
 #include "Wire.h"
 #include "MPU6050.h"
 #include "I2Cdev.h"
 
 #include "dcm.h"
 #include "sensor.h"
+#include "Servo.h"
 
 
 void imu_Valget ();
-
+void calcInput();
 void calib_gyro();
-
 void fast_loop();
 
 
@@ -26,13 +28,44 @@ extern "C" {
 #ifdef	__cplusplus
 }
 #endif
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
-  This example code is in the public domain.
- */
-long timer=0; //general purpose timer 
-long timer_old;
+
+MPU6050 accelgyro;
+volatile unsigned long ulStartPeriod = 0; // set in the interrupt
+
+int16_t ax, ay, az;
+int16_t gx, gy, gz;
+int16_t cx, cy, cz;
+
+#define COMPASS_ADDRESS      0x1E
+#define ConfigRegA           0x00
+#define SampleAveraging_8    0x03
+#define DataOutputRate_75HZ   0x06
+#define NormalOperation      0x10
+#define ModeRegister         0x02
+#define ContinuousConversion 0x00
+
+float mag_heading_x;
+float mag_heading_y;
+
+#define Kp_YAW 1.0 // Yaw Porportional Gain  
+#define Ki_YAW 0.00005 // Yaw Integrator Gain
+float errorYaw[3]= {0,0,0};
+
+
+#define CH1  3  // Pin numbers //av gauche
+#define CH2  5  //ar droit
+#define CH3  6  //ar gauche
+#define CH4  7  //av droit
+
+// I2C address 0x69 could be 0x68 depending on setup??.
+int MPU9150_I2C_ADDRESS = 0x68;
+
+volatile unsigned long startPeriod; // set in the interrupt
+volatile boolean bNewThrottleSignal = false; // set in the interrupt and read in the loop
+volatile int rc[7];
+
+int led = 13;
+
 ///////////////// DCM Variables /////////////////
 //will be used for the computation
 float DCM_Matrix[3][3]= {
@@ -93,18 +126,51 @@ float AN_OFFSET[8]; //Array that stores the Offset of the gyros
 uint8_t sensors[6] = {0,1,2,3,4,5};  
 int SENSOR_SIGN[] = {1,-1,-1,-1,1,1,-1,1,-1};
 
-#define ToRad(x) (x*0.01745329252)  // *pi/180
-#define ToDeg(x) (x*57.2957795131)  // *180/pi
 
 ///////////////// End DCM Variables /////////////////
 
-void calcInput();
-int16_t ax, ay, az;
-int16_t gx, gy, gz;
-int led = 13;
-volatile unsigned long startPeriod; // set in the interrupt
-volatile int rc[7];
-MPU6050 accelgyro;
+
+long timer=0; //general purpose timer 
+long timer_old;
+
+long timer1=0; //general purpose timer 
+long timer_old1;
+
+//IMU Variables
+int temp;
+double dT;
+int16_t C_X, C_Y, C_Z, G_X, G_Y, G_Z, A_X, A_Y, A_Z; //raw sensor data
+float G_x, G_y, G_z, A_x, A_y, A_z; //calibrated sensor data
+
+
+float command_pitch;
+float err_pitch;
+float pid_pitch;
+float pitch_I;
+float pitch_D;
+float err_pitch_old;
+
+float command_roll;
+float err_roll;
+float pid_roll;
+float roll_I;
+float roll_D;
+float err_roll_old;
+
+float throttle;
+
+float err_yaw;
+float pid_yaw;
+float yaw_I;
+
+float kp = 4.0; //3.0 //4.0
+float ki = 0.0; //0.9
+float kd = 0.6;
+
+Servo Servo_1;
+Servo Servo_2;
+Servo Servo_3;
+Servo Servo_4;
 
 int main(void)
 {
@@ -126,12 +192,24 @@ int main(void)
 
 
 void setup() {   
-  pinMode(3, OUTPUT);  
-  pinMode(9, OUTPUT);  
-  pinMode(10, OUTPUT);  
-  pinMode(11, OUTPUT); 
+    
+  pinMode(CH1,OUTPUT);
+  pinMode(CH2,OUTPUT);
+  pinMode(CH3,OUTPUT);
+  pinMode(CH4,OUTPUT);
   
-  attachInterrupt(0,calcInput,FALLING); 
+  Servo_1.attach (CH1, 1000,1900);  //av gauche
+  Servo_2.attach (CH2, 1000,1900);  //ar droit
+  Servo_3.attach (CH3, 1000,1900);  //ar gauche
+  Servo_4.attach (CH4, 1000,1900);  //av droit
+  
+  Servo_1.writeMicroseconds(1000);//arrière droit
+  Servo_2.writeMicroseconds(1000);//avant gauche
+  Servo_3.writeMicroseconds(1000);//arrière gauche
+  Servo_4.writeMicroseconds(1000);
+
+
+  attachInterrupt(0,calcInput,FALLING);
   
   Serial.begin(115200);
   Wire.begin(0);
@@ -154,16 +232,14 @@ void setup() {
 
 
   
-  //timer = micros();
+  timer = micros();
  
   delay(20);
-  
   }
 
 void loop()
 {
-
-  // Execute the fast loop
+// Execute the fast loop
   // ---------------------
   if((micros()-timer)>=10000)   // 10ms => 100 Hz loop rate 
   { 
@@ -190,52 +266,80 @@ void fast_loop() {
   Euler_angles();
   
   
-  gru_quadcl_U.rx[0]=rc[0]*10;
-  gru_quadcl_U.rx[2]=rc[1]*10;
-  gru_quadcl_U.rx[3]=rc[2]*10;
+  gru_quadcl_U.rx[0]=rc[2]*10;
+  gru_quadcl_U.rx[2]=rc[0]*10;
+  gru_quadcl_U.rx[3]=rc[1]*10;
   gru_quadcl_U.rx[4]=rc[3]*10;
+  
+
   gru_quadcl_U.rates[0] = Omega[1];
   gru_quadcl_U.rates[1] = Omega[0];
-  gru_quadcl_U.rates[2] = Omega[2];
+  gru_quadcl_U.rates[2] = -Omega[2];
+  
+  gru_quadcl_U.ahrs[0] = roll;//roll
+  gru_quadcl_U.ahrs[1] = pitch;//pitch
+          
   gru_quadcl_U.extparams[0] = 0.07;//p_p
-  gru_quadcl_U.extparams[10] = 0;//p_i
+  gru_quadcl_U.extparams[10] = 0.000;//p_i
   gru_quadcl_U.extparams[11] = 0.006;//p_d
+  
   gru_quadcl_U.extparams[15] = 0.11;//q_p
-  gru_quadcl_U.extparams[16] = 0;//q_i
+  gru_quadcl_U.extparams[16] = 0.000;//q_i
   gru_quadcl_U.extparams[17] = 0.01;//q_d
-  gru_quadcl_U.extparams[14] = 0;//attitude_mode 
-  gru_quadcl_U.extparams[2] = 40.0;//p_scale q_scqle
+  
+  gru_quadcl_U.extparams[1] = 1.2;//r_p
+  
+  gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
+  
+  gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
+  gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
+  
+  gru_quadcl_U.extparams[4] = 5.0;//phi_p theta_p
+  gru_quadcl_U.extparams[5] = 1.0;//phi_i theta_i
+  
   
   gru_quadcl_step();
   
-  
-  Serial.print(gru_quadcl_Y.servos[0]/10);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.servos[1]/10);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.servos[2]/10);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.servos[3]/10);
-  Serial.println(" ");
+ 
   /*
-  Serial.print(gru_quadcl_Y.addlog[0]);
+  Servo_2.writeMicroseconds(constrain(gru_quadcl_Y.servos[2]/10,1000,1900));//arrière droit
+  Servo_1.writeMicroseconds(constrain(gru_quadcl_Y.servos[0]/10,1000,1900));//avant gauche
+  Servo_3.writeMicroseconds(constrain(gru_quadcl_Y.servos[3]/10,1000,1900));//arrière gauche
+  Servo_4.writeMicroseconds(constrain(gru_quadcl_Y.servos[1]/10,1000,1900));//avant droit
+   */
+  
+  
+  Serial.print(gru_quadcl_Y.servos[0]);
   Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[1]);
+  Serial.print(gru_quadcl_Y.servos[1]);
   Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[2]);
+  Serial.print(gru_quadcl_Y.servos[2]);
   Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[3]);
+  Serial.print(gru_quadcl_Y.servos[3]);
   Serial.print(" ");
-   * * 
+  Serial.print(rc[0]);
+  Serial.print(" ");
+  Serial.print(rc[1]);
+  Serial.print(" ");
+  Serial.print(rc[2]);
+  Serial.println(" ");
+   
+ /*
+  Serial.print(gru_quadcl_Y.addlog[19],3);
+  Serial.print(" ");
+  Serial.print(gru_quadcl_Y.addlog[20],3);
+  Serial.print(" ");
+  Serial.print(gru_quadcl_Y.addlog[21],3);
+  Serial.print(" ");
   Serial.print(gru_quadcl_Y.addlog[22],3);
   Serial.print(" ");
   Serial.print(gru_quadcl_Y.addlog[23],3);
   Serial.print(" ");
   Serial.print(gru_quadcl_Y.addlog[24],3);
   Serial.print(" ");
-  Serial.println(gru_quadcl_Y.addlog[25],3);
+  Serial.print(gru_quadcl_Y.addlog[25],3);
   Serial.println(" ");
-   * */
+*/
   
 }
 

@@ -10,7 +10,7 @@
 #define	DCM_H
 
 
-
+ 
 
 
 
@@ -23,6 +23,8 @@ void Euler_angles(void);
 void Matrix_update(void);
 void Drift_cancellation(void);
 void Renormalization(void);
+#define ToRad(x) (x*0.01745329252)  // *pi/180
+#define ToDeg(x) (x*57.2957795131)  // *180/pi
 
 #endif	/* DCM_H */
 

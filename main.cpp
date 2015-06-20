@@ -203,6 +203,7 @@ void fast_loop() {
   
   gru_quadcl_U.ahrs[0] = roll;//roll
   gru_quadcl_U.ahrs[1] = pitch;//pitch
+  gru_quadcl_U.ahrs[2] = yaw;//yaw
           
   gru_quadcl_U.extparams[0] = 0.058;//p_p //0.06
   gru_quadcl_U.extparams[10] = 0.075;//p_i
@@ -218,10 +219,13 @@ void fast_loop() {
   
   gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
   gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
-  gru_quadcl_U.extparams[3] = 80.0;//p_scale q_scqle
+  gru_quadcl_U.extparams[3] = 80.0;//r_scale
   
   gru_quadcl_U.extparams[4] = 5.9000;//phi_p theta_p //4.5
   gru_quadcl_U.extparams[5] = 0.0000;//phi_i theta_i //1.0
+  
+  gru_quadcl_U.extparams[12] = -1.0;//head_p
+  gru_quadcl_U.extparams[13] = 0.2;//r_breakout
   
   //Control law
   gru_quadcl_step();

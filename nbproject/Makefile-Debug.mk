@@ -40,9 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1493333357/Servo.o \
 	${OBJECTDIR}/_ext/1987957681/Wire.o \
 	${OBJECTDIR}/_ext/1614257906/twi.o \
-	${OBJECTDIR}/dcm.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/sensor.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -100,20 +98,10 @@ ${OBJECTDIR}/_ext/1614257906/twi.o: nbproject/Makefile-${CND_CONF}.mk /usr/local
 	${RM} "$@.d"
 	$(COMPILE.c) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1614257906/twi.o /usr/local/arduino1.0/libraries/Wire/utility/twi.c
 
-${OBJECTDIR}/dcm.o: nbproject/Makefile-${CND_CONF}.mk dcm.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dcm.o dcm.cpp
-
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/sensor.o: nbproject/Makefile-${CND_CONF}.mk sensor.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sensor.o sensor.cpp
 
 # Subprojects
 .build-subprojects:

@@ -5,7 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>dcm.h</itemPath>
-      <itemPath>sensor.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -14,9 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>dcm.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>sensor.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -163,15 +160,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="dcm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="dcm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="sensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="sensor.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -244,15 +235,9 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="dcm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="dcm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="sensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="sensor.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -1,9 +1,12 @@
 #include <Arduino.h>
 
 #include "Wire.h"
+
 #include "MPU6050.h"
 #include "I2Cdev.h"
+#include "MS561101BA.h"
 #include "Servo.h"
+
 
 #include "dcm.h"
 
@@ -11,6 +14,9 @@ void imu_Valget ();
 void calcInput();
 void calib_gyro();
 void fast_loop();
+float getAltitude(float, float);
+void pushAvg(float);
+float getAvg(float*, int);
 
 
 #ifdef	__cplusplus
@@ -32,6 +38,18 @@ int yoffset = -122;
 int zoffset = -13;
 
 int16_t mx, my, mz;     //To store magnetometer readings
+
+MS561101BA baro = MS561101BA();
+///BARO INIT
+#define MOVAVG_SIZE 32
+float movavg_buff[MOVAVG_SIZE];
+int movavg_i=0;
+
+const float sea_press = 1013.25;
+float press, temp;
+float altitude;
+
+int switch_token =0;
 
 volatile unsigned long startPeriod; // set in the interrupt
 volatile int rc[7];
@@ -111,6 +129,12 @@ void setup() {
   //IMU calibration
   calib_gyro(); //Bias computed once and values stored in program
   
+    baro.init(MS561101BA_ADDR_CSB_LOW);
+  for(int i=0; i<MOVAVG_SIZE; i++) {
+    movavg_buff[i] = baro.getPressure(MS561101BA_OSR_4096);
+  }
+  
+  
   // Magnetometer configuration
 
   accelgyro.setI2CMasterModeEnabled(0);
@@ -159,6 +183,32 @@ void setup() {
 
   accelgyro.setI2CMasterModeEnabled(1);
   
+  gru_quadcl_U.extparams[0] = 0.058;//p_p //0.06
+  gru_quadcl_U.extparams[10] = 0.075;//p_i
+  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.001
+  
+  gru_quadcl_U.extparams[15] = 0.090;//q_p //P.12
+  gru_quadcl_U.extparams[16] = 0.100;//q_i
+  gru_quadcl_U.extparams[17] = 0.006;//q_d //0.002
+  
+  gru_quadcl_U.extparams[1] = 1.2;//r_p
+  
+  gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
+  
+  gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
+  gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
+  gru_quadcl_U.extparams[3] = 80.0;//r_scale
+  
+  gru_quadcl_U.extparams[4] = 5.9000;//phi_p theta_p //4.5
+  gru_quadcl_U.extparams[5] = 0.0000;//phi_i theta_i //1.0
+  
+  gru_quadcl_U.extparams[12] = -1.0;//head_p
+  gru_quadcl_U.extparams[13] = 0.2;//r_breakout
+  
+  gru_quadcl_U.extparams[7] = 0.1;//p_alt
+  gru_quadcl_U.extparams[8] = 0.0;//i_alt
+  gru_quadcl_U.extparams[9] = 0.1;//d_alt
+  
   timer = micros();
  
   delay(20);
@@ -195,7 +245,7 @@ void fast_loop() {
   gru_quadcl_U.rx[2]=rc[0]*10;
   gru_quadcl_U.rx[3]=rc[1]*10;
   gru_quadcl_U.rx[4]=rc[3]*10;
-  
+  gru_quadcl_U.rx[5]=rc[4]*10;
 
   gru_quadcl_U.rates[0] = Omega[1];
   gru_quadcl_U.rates[1] = Omega[0];
@@ -204,28 +254,9 @@ void fast_loop() {
   gru_quadcl_U.ahrs[0] = roll;//roll
   gru_quadcl_U.ahrs[1] = pitch;//pitch
   gru_quadcl_U.ahrs[2] = yaw;//yaw
+  
+  gru_quadcl_U.extparams[31] = altitude;//altitude_m
           
-  gru_quadcl_U.extparams[0] = 0.058;//p_p //0.06
-  gru_quadcl_U.extparams[10] = 0.075;//p_i
-  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.001
-  
-  gru_quadcl_U.extparams[15] = 0.090;//q_p //P.12
-  gru_quadcl_U.extparams[16] = 0.100;//q_i
-  gru_quadcl_U.extparams[17] = 0.006;//q_d //0.002
-  
-  gru_quadcl_U.extparams[1] = 1.2;//r_p
-  
-  gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
-  
-  gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
-  gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
-  gru_quadcl_U.extparams[3] = 80.0;//r_scale
-  
-  gru_quadcl_U.extparams[4] = 5.9000;//phi_p theta_p //4.5
-  gru_quadcl_U.extparams[5] = 0.0000;//phi_i theta_i //1.0
-  
-  gru_quadcl_U.extparams[12] = -1.0;//head_p
-  gru_quadcl_U.extparams[13] = 0.2;//r_breakout
   
   //Control law
   gru_quadcl_step();
@@ -239,29 +270,29 @@ void fast_loop() {
   
   
   //Logger
-  Serial.print(MAG_Heading);
-  Serial.print(" ");
-  Serial.print(yaw);
-  Serial.println(" ");
-  Serial1.print(G_Dt,3);
-  Serial1.println(" ");
+  //Serial.print(altitude);
+  //Serial.print(" ");
+  //Serial.print(rc[4]);
+  //Serial.print(" ");
+  Serial.println(G_Dt,3);
+  //Serial.println(" ");
    
- /*
-  Serial.print(gru_quadcl_Y.addlog[19],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[20],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[21],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[22],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[23],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[24],3);
-  Serial.print(" ");
-  Serial.print(gru_quadcl_Y.addlog[25],3);
-  Serial.println(" ");
-*/
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[0],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[20],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[21],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[19],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[23],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[24],3);
+  //Serial.print(" ");
+  //Serial.print(gru_quadcl_Y.addlog[25],3);
+  //Serial.println(" ");
+
   
 }
 
@@ -302,30 +333,68 @@ void imu_Valget ()
   AN[4] = ay;
   AN[5] = az;
   
-    //Read magnetometer measures
-    mx=accelgyro.getExternalSensorWord(0);
-    my=accelgyro.getExternalSensorWord(2);
-    mz=accelgyro.getExternalSensorWord(4);
-
-  float MAG_X;
-  float MAG_Y;
-  float cos_roll;
-  float sin_roll;
-  float cos_pitch;
-  float sin_pitch;
+  float temperature;
   
-  cos_roll = cos(pitch);  // Optimizacion, se puede sacar esto de la matriz DCM?
-  sin_roll = sin(pitch);
-  cos_pitch = cos(-roll);
-  sin_pitch = sin(-roll);
-  // Tilt compensated Magnetic filed X:
-  MAG_X = (mx-xoffset)*cos_pitch+(my-yoffset)*sin_roll*sin_pitch+(mz-zoffset)*cos_roll*sin_pitch;
-  // Tilt compensated Magnetic filed Y:
-  MAG_Y = (my-yoffset)*cos_roll-(mz-zoffset)*sin_roll;
-  // Magnetic Heading
-  MAG_Heading = atan2(MAG_Y,MAG_X);
-    //if(MAG_Heading < 0) MAG_Heading += 2 * M_PI;
+  switch(switch_token)
+  {
+      case 0:
+          //Read magnetometer measures
+        mx=accelgyro.getExternalSensorWord(0);
+        my=accelgyro.getExternalSensorWord(2);
+        mz=accelgyro.getExternalSensorWord(4);
 
+        float MAG_X;
+        float MAG_Y;
+        float cos_roll;
+        float sin_roll;
+        float cos_pitch;
+        float sin_pitch;
+
+        cos_roll = cos(pitch);  // Optimizacion, se puede sacar esto de la matriz DCM?
+        sin_roll = sin(pitch);
+        cos_pitch = cos(-roll);
+        sin_pitch = sin(-roll);
+        // Tilt compensated Magnetic filed X:
+        MAG_X = (mx-xoffset)*cos_pitch+(my-yoffset)*sin_roll*sin_pitch+(mz-zoffset)*cos_roll*sin_pitch;
+        // Tilt compensated Magnetic filed Y:
+        MAG_Y = (my-yoffset)*cos_roll-(mz-zoffset)*sin_roll;
+        // Magnetic Heading
+        MAG_Heading = atan2(MAG_Y,MAG_X);
+          //if(MAG_Heading < 0) MAG_Heading += 2 * M_PI;
+        switch_token=1;
+        break;
+          
+      case 1:
+        temperature = baro.getTemperature(MS561101BA_OSR_4096);
+        if(temperature) {
+          temp = temperature;
+        }
+          press = baro.getPressure(MS561101BA_OSR_4096);
+        if(press!=NULL) {
+          pushAvg(press);
+        }
+        press = getAvg(movavg_buff, MOVAVG_SIZE);
+        altitude = getAltitude(press, temp);
+        
+        switch_token=2;
+        break;
+      
+      case 2:
+        Serial.print(gru_quadcl_Y.addlog[20]);
+        Serial.print(" ");
+        Serial.print(gru_quadcl_Y.addlog[21]);
+        Serial.print(" ");
+        Serial.print(gru_quadcl_Y.addlog[19]);
+        Serial.println("");
+        
+        switch_token=0;
+        break;
+        
+      default:
+          switch_token=0;
+          break;
+  }   
+      
 }
 
 
@@ -361,6 +430,24 @@ void calib_gyro()
   
    //AN_OFFSET[5]-=GRAVITY*SENSOR_SIGN[5];
  
+}
+
+float getAltitude(float press, float temp) {
+  //return (1.0f - pow(press/101325.0f, 0.190295f)) * 4433000.0f;
+  return ((pow((sea_press / press), 1/5.257) - 1.0) * (temp + 273.15)) / 0.0065;
+}
+
+void pushAvg(float val) {
+  movavg_buff[movavg_i] = val;
+  movavg_i = (movavg_i + 1) % MOVAVG_SIZE;
+}
+
+float getAvg(float * buff, int size) {
+  float sum = 0.0;
+  for(int i=0; i<size; i++) {
+    sum += buff[i];
+  }
+  return sum / size;
 }
 
 

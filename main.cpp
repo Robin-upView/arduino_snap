@@ -183,6 +183,8 @@ void setup() {
 
   accelgyro.setI2CMasterModeEnabled(1);
   
+  gru_quadcl_initialize();
+  
   gru_quadcl_U.extparams[0] = 0.058;//p_p //0.06
   gru_quadcl_U.extparams[10] = 0.075;//p_i
   gru_quadcl_U.extparams[11] = 0.004;//p_d //0.001
@@ -274,7 +276,7 @@ void fast_loop() {
   //Serial.print(" ");
   //Serial.print(rc[4]);
   //Serial.print(" ");
-  Serial.println(G_Dt,3);
+  Serial1.println(G_Dt,3);
   //Serial.println(" ");
    
   //Serial.print(" ");
@@ -323,16 +325,6 @@ void calcInput()
 
 void imu_Valget ()
 {
-  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-  
-  //we store gyro and accel values in an array
-  AN[0] = gx;   
-  AN[1] = gy;
-  AN[2] = gz;
-  AN[3] = ax;
-  AN[4] = ay;
-  AN[5] = az;
-  
   float temperature;
   
   switch(switch_token)
@@ -380,12 +372,12 @@ void imu_Valget ()
         break;
       
       case 2:
-        Serial.print(gru_quadcl_Y.addlog[20]);
-        Serial.print(" ");
-        Serial.print(gru_quadcl_Y.addlog[21]);
-        Serial.print(" ");
-        Serial.print(gru_quadcl_Y.addlog[19]);
-        Serial.println("");
+        Serial1.print(gru_quadcl_Y.addlog[20]);
+        Serial1.print(" ");
+        Serial1.print(gru_quadcl_Y.addlog[21]);
+        Serial1.print(" ");
+        Serial1.print(gru_quadcl_Y.addlog[19]);
+        Serial1.println("");
         
         switch_token=0;
         break;
@@ -393,7 +385,19 @@ void imu_Valget ()
       default:
           switch_token=0;
           break;
-  }   
+  }
+  
+  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+  
+  //we store gyro and accel values in an array
+  AN[0] = gx;   
+  AN[1] = gy;
+  AN[2] = gz;
+  AN[3] = ax;
+  AN[4] = ay;
+  AN[5] = az;
+  
+     
       
 }
 

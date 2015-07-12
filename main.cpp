@@ -255,7 +255,28 @@ void fast_loop() {
   
   gru_quadcl_U.ahrs[0] = roll;//roll
   gru_quadcl_U.ahrs[1] = pitch;//pitch
+<<<<<<< HEAD
   gru_quadcl_U.ahrs[2] = yaw;//yaw
+=======
+          
+  gru_quadcl_U.extparams[0] = 0.07;//p_p
+  gru_quadcl_U.extparams[10] = 0.000;//p_i
+  gru_quadcl_U.extparams[11] = 0.006;//p_d
+  
+  gru_quadcl_U.extparams[15] = 0.11;//q_p
+  gru_quadcl_U.extparams[16] = 0.000;//q_i
+  gru_quadcl_U.extparams[17] = 0.01;//q_d
+  
+  gru_quadcl_U.extparams[1] = 1.2;//r_p
+  
+  gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
+  
+  gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
+  gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
+  
+  gru_quadcl_U.extparams[4] = 5.0;//phi_p theta_p
+  gru_quadcl_U.extparams[5] = 1.0;//phi_i theta_i
+>>>>>>> parent of 6eceee6... gains from the internet
   
   gru_quadcl_U.extparams[31] = altitude;//altitude_m
           
@@ -264,12 +285,16 @@ void fast_loop() {
   gru_quadcl_step();
   
  
+<<<<<<< HEAD
   //Motors values
+=======
+  /*
+>>>>>>> parent of 6eceee6... gains from the internet
   Servo_2.writeMicroseconds(constrain(gru_quadcl_Y.servos[2]/10,1000,1900));//arrière droit
   Servo_1.writeMicroseconds(constrain(gru_quadcl_Y.servos[0]/10,1000,1900));//avant gauche
   Servo_3.writeMicroseconds(constrain(gru_quadcl_Y.servos[3]/10,1000,1900));//arrière gauche
   Servo_4.writeMicroseconds(constrain(gru_quadcl_Y.servos[1]/10,1000,1900));//avant droit
-  
+   */
   
   //Logger
   //Serial.print(altitude);

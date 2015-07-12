@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <activeConfTypeElem>1</activeConfTypeElem>
+        <activeConfIndexElem>0</activeConfIndexElem>
+    </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp</file>
+            <file>file:/usr/local/arduino1.0/libraries/Wire/utility/twi.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp</file>
+            <file>file:/Users/Robin/NetBeansProjects/blink/main.cpp</file>
+            <file>file:/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h</file>
+            <file>file:/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp</file>
+            <file>file:/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.h</file>
+            <file>file:/Users/Robin/NetBeansProjects/blink/dcm.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/Servo/Servo.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp</file>
+            <file>file:/Users/Robin/NetBeansProjects/blink/Makefile</file>
+            <file>file:/usr/local/arduino1.0/libraries/Wire/Wire.h</file>
+        </group>
+    </open-files>
+</project-private>

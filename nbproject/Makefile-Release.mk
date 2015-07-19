@@ -35,10 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1805655001/merlin_mount.o \
 	${OBJECTDIR}/_ext/1286114937/I2Cdev.o \
 	${OBJECTDIR}/_ext/1085735333/MPU6050.o \
-	${OBJECTDIR}/_ext/780366925/MS561101BA.o \
 	${OBJECTDIR}/_ext/1493333357/Servo.o \
 	${OBJECTDIR}/_ext/1987957681/Wire.o \
 	${OBJECTDIR}/_ext/1614257906/twi.o \
@@ -69,11 +67,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/1805655001/merlin_mount.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1805655001
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1805655001/merlin_mount.o /usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp
-
 ${OBJECTDIR}/_ext/1286114937/I2Cdev.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1286114937
 	${RM} "$@.d"
@@ -83,11 +76,6 @@ ${OBJECTDIR}/_ext/1085735333/MPU6050.o: nbproject/Makefile-${CND_CONF}.mk /usr/l
 	${MKDIR} -p ${OBJECTDIR}/_ext/1085735333
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1085735333/MPU6050.o /usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp
-
-${OBJECTDIR}/_ext/780366925/MS561101BA.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/780366925
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/780366925/MS561101BA.o /usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp
 
 ${OBJECTDIR}/_ext/1493333357/Servo.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Servo/Servo.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1493333357

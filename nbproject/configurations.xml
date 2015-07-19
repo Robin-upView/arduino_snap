@@ -30,14 +30,10 @@
     <itemPath>/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h</itemPath>
-    <itemPath>/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp</itemPath>
-    <itemPath>/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Servo/Servo.cpp</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Servo/Servo.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/Wire.cpp</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/Wire.h</itemPath>
-    <itemPath>/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp</itemPath>
-    <itemPath>/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.h</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/utility/twi.c</itemPath>
     <itemPath>/usr/local/arduino1.0/libraries/Wire/utility/twi.h</itemPath>
   </logicalFolder>
@@ -67,7 +63,6 @@
             <pElem>/usr/local/arduino1.0/libraries/I2Cdev</pElem>
             <pElem>../control_law</pElem>
             <pElem>/usr/local/arduino1.0/libraries/Servo</pElem>
-            <pElem>/usr/local/arduino1.0/libraries/MS561101BA</pElem>
           </incDir>
           <commandLine>-Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105</commandLine>
         </ccTool>
@@ -115,16 +110,6 @@
           <commandLine>-Os -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>
       </compileType>
-      <item path="/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp"
             ex="false"
             tool="1"
@@ -141,16 +126,6 @@
             flavor2="0">
       </item>
       <item path="/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -210,16 +185,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/arduino/libraries/libraries/MerlinMount/merlin_mount.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="/usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp"
             ex="false"
             tool="1"
@@ -236,16 +201,6 @@
             flavor2="0">
       </item>
       <item path="/usr/local/arduino1.0/libraries/MPU6050/MPU6050.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h"
             ex="false"
             tool="3"
             flavor2="0">

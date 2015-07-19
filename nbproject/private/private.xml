@@ -8,11 +8,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/Robin/NetBeansProjects/blink/dcm.h</file>
-            <file>file:/Users/Robin/NetBeansProjects/blink/Makefile</file>
-            <file>file:/Users/Robin/NetBeansProjects/blink/sensor.cpp</file>
+            <file>file:/usr/local/arduino1.0/libraries/Servo/Servo.h</file>
             <file>file:/Users/Robin/NetBeansProjects/blink/main.cpp</file>
-            <file>file:/Users/Robin/NetBeansProjects/blink/sensor.h</file>
-            <file>file:/Users/Robin/NetBeansProjects/blink/dcm.cpp</file>
         </group>
     </open-files>
 </project-private>

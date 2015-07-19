@@ -12,11 +12,11 @@ build/Debug/Arduino-MacOSX/main.o: main.cpp \
  /usr/local/arduino1.0/libraries/Wire/Wire.h \
  /usr/local/arduino1.0/arduino/cores/arduino/Stream.h \
  /usr/local/arduino1.0/libraries/MPU6050/MPU6050.h \
- /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h dcm.h sensor.h \
+ /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h \
+ /usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h \
  /usr/local/arduino1.0/libraries/Servo/Servo.h \
  ../control_law/gru_quadcl.h ../control_law/rtwtypes.h \
- ../control_law/gru_quadcl_types.h ../control_law/rt_zcfcn.h \
- ../control_law/solver_zc.h
+ ../control_law/gru_quadcl_types.h
 
 /usr/local/arduino1.0/arduino/cores/arduino/Arduino.h:
 
@@ -46,9 +46,7 @@ build/Debug/Arduino-MacOSX/main.o: main.cpp \
 
 /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h:
 
-dcm.h:
-
-sensor.h:
+/usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h:
 
 /usr/local/arduino1.0/libraries/Servo/Servo.h:
 
@@ -57,7 +55,3 @@ sensor.h:
 ../control_law/rtwtypes.h:
 
 ../control_law/gru_quadcl_types.h:
-
-../control_law/rt_zcfcn.h:
-
-../control_law/solver_zc.h:

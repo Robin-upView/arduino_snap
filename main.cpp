@@ -123,7 +123,7 @@ void setup() {
   delay(1);
   accelgyro.setRate(1);
   delay(1);
-  accelgyro.setDLPFMode(3);// set bandwidth of both gyro and accelerometer to ~20 Hz
+  accelgyro.setDLPFMode(4);// set bandwidth of both gyro and accelerometer to ~20 Hz
   delay(1);
   
   //IMU calibration
@@ -132,13 +132,13 @@ void setup() {
   
   gru_quadcl_initialize();
   
-  gru_quadcl_U.extparams[0] = 0.058;//p_p //0.06
+  gru_quadcl_U.extparams[0] = 0.06;//p_p //0.06
   gru_quadcl_U.extparams[10] = 0.00;//p_i
-  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.001
+  gru_quadcl_U.extparams[11] = 0.001;//p_d //0.001
   
-  gru_quadcl_U.extparams[15] = 0.090;//q_p //P.12
+  gru_quadcl_U.extparams[15] = 0.06;//q_p //P.12
   gru_quadcl_U.extparams[16] = 0.00;//q_i
-  gru_quadcl_U.extparams[17] = 0.006;//q_d //0.002
+  gru_quadcl_U.extparams[17] = 0.001;//q_d //0.002
   
   gru_quadcl_U.extparams[1] = 1.2;//r_p
   
@@ -155,8 +155,8 @@ void setup() {
   q1=0;
   q2=0;
   q3=0;
-  twoKi = 0.02;
-  twoKp = 1.0;
+  twoKi = 0.001;
+  twoKp = 1.5;
 
   
   timer = micros();

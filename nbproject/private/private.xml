@@ -9,7 +9,9 @@
         <group>
             <file>file:/Users/Robin/NetBeansProjects/blink/dcm.h</file>
             <file>file:/usr/local/arduino1.0/libraries/Servo/Servo.h</file>
+            <file>file:/usr/local/arduino1.0/libraries/Wire/Wire.h</file>
             <file>file:/Users/Robin/NetBeansProjects/blink/main.cpp</file>
+            <file>file:/usr/local/arduino1.0/libraries/Wire/Wire.cpp</file>
         </group>
     </open-files>
 </project-private>

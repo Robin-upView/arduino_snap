@@ -132,13 +132,13 @@ void setup() {
   
   gru_quadcl_initialize();
   
-  gru_quadcl_U.extparams[0] = 0.06;//p_p //0.06
-  gru_quadcl_U.extparams[10] = 0.00;//p_i
-  gru_quadcl_U.extparams[11] = 0.001;//p_d //0.001
+  gru_quadcl_U.extparams[0] = 0.09;//p_p //0.07
+  gru_quadcl_U.extparams[10] = 0.09;//p_i
+  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.002
   
-  gru_quadcl_U.extparams[15] = 0.06;//q_p //P.12
-  gru_quadcl_U.extparams[16] = 0.00;//q_i
-  gru_quadcl_U.extparams[17] = 0.001;//q_d //0.002
+  gru_quadcl_U.extparams[15] = 0.09;//q_p //0.08
+  gru_quadcl_U.extparams[16] = 0.09;//q_i
+  gru_quadcl_U.extparams[17] = 0.004;//q_d //0.002
   
   gru_quadcl_U.extparams[1] = 1.2;//r_p
   
@@ -148,8 +148,8 @@ void setup() {
   gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
   gru_quadcl_U.extparams[3] = 80.0;//r_scale
   
-  gru_quadcl_U.extparams[4] = 5.000;//phi_p theta_p //4.5
-  gru_quadcl_U.extparams[5] = 1.000;//phi_i theta_i //1.0
+  gru_quadcl_U.extparams[4] = 9.000;//phi_p theta_p //7.0
+  gru_quadcl_U.extparams[5] = 0.000;//phi_i theta_i //1.0//0.5
   
   q0=1;
   q1=0;
@@ -235,7 +235,7 @@ void fast_loop() {
   //Serial.print(" ");
   //Serial.print(gz-gyro_offset_z);
   //Serial.print(" ");
-  //Serial.println(G_Dt,4);
+  //Serial.println(G_Dt*10000);
   //Serial.println(" ");
    
   //Serial.print(" ");

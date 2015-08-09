@@ -132,24 +132,24 @@ void setup() {
   
   gru_quadcl_initialize();
   
-  gru_quadcl_U.extparams[0] = 0.09;//p_p //0.07
-  gru_quadcl_U.extparams[10] = 0.09;//p_i
-  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.002
+  gru_quadcl_U.extparams[0] = 0.100;//p_p //0.07
+  gru_quadcl_U.extparams[10] = 0.100;//0.09;//p_i
+  gru_quadcl_U.extparams[11] = 0.005;//p_d //0.002
   
-  gru_quadcl_U.extparams[15] = 0.09;//q_p //0.08
-  gru_quadcl_U.extparams[16] = 0.09;//q_i
-  gru_quadcl_U.extparams[17] = 0.004;//q_d //0.002
+  gru_quadcl_U.extparams[15] = 0.100;//q_p //0.08
+  gru_quadcl_U.extparams[16] = 0.100;//0.09;//q_i
+  gru_quadcl_U.extparams[17] = 0.005;//q_d //0.002
   
   gru_quadcl_U.extparams[1] = 1.2;//r_p
   
   gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
   
-  gru_quadcl_U.extparams[6] = 40.0;//phi_scale theta_scale
+  gru_quadcl_U.extparams[6] = 45.0;//phi_scale theta_scale
   gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
   gru_quadcl_U.extparams[3] = 80.0;//r_scale
   
-  gru_quadcl_U.extparams[4] = 9.000;//phi_p theta_p //7.0
-  gru_quadcl_U.extparams[5] = 0.000;//phi_i theta_i //1.0//0.5
+  gru_quadcl_U.extparams[4] = 6.500;//phi_p theta_p //7.0
+  gru_quadcl_U.extparams[5] = 0.000;//0.500;//phi_i theta_i //1.0//0.5
   
   q0=1;
   q1=0;
@@ -182,7 +182,7 @@ void fast_loop() {
   //read sensors
   imu_Valget (); 
     
-   updateIMU(ax,ay,az,gx,gy,gz,G_Dt);
+  updateIMU(ax,ay,az,gx,gy,gz,G_Dt);
    
   pitch = atan2(2*(q0*q1+q2*q3), 1-2*(q1*q1+q2*q2));
   roll = -asin(2*(q0*q2-q3*q1));
@@ -239,11 +239,11 @@ void fast_loop() {
   //Serial.println(" ");
    
   //Serial.print(" ");
-  //Serial.print(gru_quadcl_Y.addlog[0],3);
+  //Serial.print(gru_quadcl_Y.addlog[30],3);
   //Serial.print(" ");
-  //Serial.print(gru_quadcl_Y.addlog[20],3);
+  //Serial.print(gru_quadcl_Y.addlog[31],3);
   //Serial.print(" ");
-  //Serial.print(gru_quadcl_Y.addlog[21],3);
+  //Serial.print(gru_quadcl_Y.addlog[29],3);
   //Serial.print(" ");
   //Serial.print(gru_quadcl_Y.addlog[19],3);
   //Serial.print(" ");

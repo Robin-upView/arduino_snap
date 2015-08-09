@@ -57,15 +57,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a ../control_law_arduino/dist/Debug/Arduino-MacOSX/libcontrol_law_arduino.a ../control_law/dist/Debug/Arduino-MacOSX/libcontrol_law.a -lm
+LDLIBSOPTIONS=../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a ../control_law/dist/Debug/Arduino-MacOSX/libcontrol_law.a -lm
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ../control_law_arduino/dist/Debug/Arduino-MacOSX/libcontrol_law_arduino.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ../control_law/dist/Debug/Arduino-MacOSX/libcontrol_law.a
 
@@ -76,22 +74,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/1286114937/I2Cdev.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1286114937
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1286114937/I2Cdev.o /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp
+	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1286114937/I2Cdev.o /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp
 
 ${OBJECTDIR}/_ext/1085735333/MPU6050.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1085735333
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1085735333/MPU6050.o /usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp
+	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1085735333/MPU6050.o /usr/local/arduino1.0/libraries/MPU6050/MPU6050.cpp
 
 ${OBJECTDIR}/_ext/1493333357/Servo.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Servo/Servo.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1493333357
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1493333357/Servo.o /usr/local/arduino1.0/libraries/Servo/Servo.cpp
+	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1493333357/Servo.o /usr/local/arduino1.0/libraries/Servo/Servo.cpp
 
 ${OBJECTDIR}/_ext/1987957681/Wire.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Wire/Wire.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1987957681
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1987957681/Wire.o /usr/local/arduino1.0/libraries/Wire/Wire.cpp
+	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1987957681/Wire.o /usr/local/arduino1.0/libraries/Wire/Wire.cpp
 
 ${OBJECTDIR}/_ext/1614257906/twi.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/Wire/utility/twi.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1614257906
@@ -101,12 +99,11 @@ ${OBJECTDIR}/_ext/1614257906/twi.o: nbproject/Makefile-${CND_CONF}.mk /usr/local
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I../control_law_arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/local/arduino1.0/arduino/cores/arduino -I/usr/local/arduino1.0/libraries/Wire -I/usr/local/arduino1.0/libraries/Wire/utility -I/usr/local/arduino1.0/libraries/MPU6050 -I/usr/local/arduino1.0/libraries/I2Cdev -I../control_law -I/usr/local/arduino1.0/libraries/Servo -I/usr/local/arduino1.0/libraries/MS561101BA -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../arduino_corelib && ${MAKE}  -f Makefile CONF=Debug
-	cd ../control_law_arduino && ${MAKE}  -f Makefile CONF=Debug
 	cd ../control_law && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
@@ -117,7 +114,6 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../arduino_corelib && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../control_law_arduino && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../control_law && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking

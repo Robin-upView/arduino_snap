@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>dcm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -56,7 +55,6 @@
         <ccTool>
           <incDir>
             <pElem>/usr/local/arduino1.0/arduino/cores/arduino</pElem>
-            <pElem>../control_law_arduino</pElem>
             <pElem>/usr/local/arduino1.0/libraries/Wire</pElem>
             <pElem>/usr/local/arduino1.0/libraries/Wire/utility</pElem>
             <pElem>/usr/local/arduino1.0/libraries/MPU6050</pElem>
@@ -80,18 +78,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduino_corelib.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../control_law_arduino"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../control_law_arduino"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcontrol_law_arduino.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -160,8 +146,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="dcm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -235,8 +219,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="dcm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

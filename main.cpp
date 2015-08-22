@@ -132,24 +132,26 @@ void setup() {
   
   gru_quadcl_initialize();
   
-  gru_quadcl_U.extparams[0] = 0.100;//p_p //0.07
-  gru_quadcl_U.extparams[10] = 0.100;//0.09;//p_i
-  gru_quadcl_U.extparams[11] = 0.005;//p_d //0.002
+  gru_quadcl_U.extparams[0] = 0.150;//p_p //0.12
+  gru_quadcl_U.extparams[10] = 0.000;//0.09;//p_i
+  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.0025 steps
   
-  gru_quadcl_U.extparams[15] = 0.100;//q_p //0.08
-  gru_quadcl_U.extparams[16] = 0.100;//0.09;//q_i
-  gru_quadcl_U.extparams[17] = 0.005;//q_d //0.002
+  gru_quadcl_U.extparams[15] = 0.150;//q_p //0.08
+  gru_quadcl_U.extparams[16] = 0.000;//0.09;//q_i
+  gru_quadcl_U.extparams[17] = 0.004;//q_d //0.0025 steps
   
   gru_quadcl_U.extparams[1] = 1.2;//r_p
+  gru_quadcl_U.extparams[13] = 0.2;//r_breakout
+  gru_quadcl_U.extparams[12] = -1.0;//head_p
   
   gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
   
   gru_quadcl_U.extparams[6] = 45.0;//phi_scale theta_scale
   gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
-  gru_quadcl_U.extparams[3] = 80.0;//r_scale
+  gru_quadcl_U.extparams[3] = 150.0;//r_scale
   
   gru_quadcl_U.extparams[4] = 6.500;//phi_p theta_p //7.0
-  gru_quadcl_U.extparams[5] = 0.000;//0.500;//phi_i theta_i //1.0//0.5
+  gru_quadcl_U.extparams[5] = 1.000;//0.500;//phi_i theta_i //1.0//0.5
   
   q0=1;
   q1=0;
@@ -220,14 +222,13 @@ void fast_loop() {
   Servo_1.writeMicroseconds(constrain(gru_quadcl_Y.servos[0]/10,1000,1900));//avant gauche
   Servo_3.writeMicroseconds(constrain(gru_quadcl_Y.servos[3]/10,1000,1900));//arrière gauche
   Servo_4.writeMicroseconds(constrain(gru_quadcl_Y.servos[1]/10,1000,1900));//avant droit
+
   
-  
-  //Logger
   //Serial.print(roll);
   //Serial.print(" ");
   //Serial.print(pitch);
   //Serial.print(" ");
-  //Serial.print(yaw);
+  //Serial.println(yaw);
   //Serial.print(" ");
   //Serial.print(gy-gyro_offset_y);
   //Serial.print(" ");

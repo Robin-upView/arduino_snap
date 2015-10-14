@@ -61,15 +61,15 @@ LDLIBSOPTIONS=../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a 
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap: ../arduino_corelib/dist/Debug/Arduino-MacOSX/libarduino_corelib.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ../control_law/dist/Debug/Arduino-MacOSX/libcontrol_law.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap: ../control_law/dist/Debug/Arduino-MacOSX/libcontrol_law.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	avr-gcc -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink ${OBJECTFILES} ${LDLIBSOPTIONS} -Os -Wl,--gc-sections -mmcu=atmega2560
+	avr-gcc -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap ${OBJECTFILES} ${LDLIBSOPTIONS} -Os -Wl,--gc-sections -mmcu=atmega2560
 
 ${OBJECTDIR}/_ext/1286114937/I2Cdev.o: nbproject/Makefile-${CND_CONF}.mk /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1286114937
@@ -109,7 +109,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/blink
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arduino_snap
 
 # Subprojects
 .clean-subprojects:

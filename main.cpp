@@ -1,3 +1,5 @@
+//screen /dev/tty.usbserial-A502FX9P 115200
+
 #include <Arduino.h>
 
 #include "Wire.h"
@@ -22,7 +24,7 @@ float invSqrt(float x);
 extern "C" {
 #endif
 
-#include "gru_quadcl.h"
+#include "Arduino_250.h"
 
 #ifdef	__cplusplus
 }
@@ -130,28 +132,28 @@ void setup() {
   calib_gyro(); //Bias computed once and values stored in program
   
   
-  gru_quadcl_initialize();
+  Arduino_250_initialize();
   
-  gru_quadcl_U.extparams[0] = 0.150;//p_p //0.12
-  gru_quadcl_U.extparams[10] = 0.000;//0.09;//p_i
-  gru_quadcl_U.extparams[11] = 0.004;//p_d //0.0025 steps
+  Arduino_250_U.extparams[0] = 0.125;//p_p //0.12
+  Arduino_250_U.extparams[10] = 0.000;//0.09;//p_i
+  Arduino_250_U.extparams[11] = 0.004;//p_d //0.0025 steps
   
-  gru_quadcl_U.extparams[15] = 0.150;//q_p //0.08
-  gru_quadcl_U.extparams[16] = 0.000;//0.09;//q_i
-  gru_quadcl_U.extparams[17] = 0.004;//q_d //0.0025 steps
+  Arduino_250_U.extparams[15] = 0.125;//q_p //0.08
+  Arduino_250_U.extparams[16] = 0.000;//0.09;//q_i
+  Arduino_250_U.extparams[17] = 0.004;//q_d //0.0025 steps
   
-  gru_quadcl_U.extparams[1] = 1.2;//r_p
-  gru_quadcl_U.extparams[13] = 0.2;//r_breakout
-  gru_quadcl_U.extparams[12] = -1.0;//head_p
+  Arduino_250_U.extparams[1] = 1.2;//r_p
+  Arduino_250_U.extparams[13] = 0.2;//r_breakout
+  Arduino_250_U.extparams[12] = -1.0;//head_p
   
-  gru_quadcl_U.extparams[14] = 1.0;//attitude_mode 
+  Arduino_250_U.extparams[14] = 1.0;//attitude_mode 
   
-  gru_quadcl_U.extparams[6] = 45.0;//phi_scale theta_scale
-  gru_quadcl_U.extparams[2] = 180.0;//p_scale q_scqle
-  gru_quadcl_U.extparams[3] = 150.0;//r_scale
+  Arduino_250_U.extparams[6] = 45.0;//phi_scale theta_scale
+  Arduino_250_U.extparams[2] = 180.0;//p_scale q_scqle
+  Arduino_250_U.extparams[3] = 150.0;//r_scale
   
-  gru_quadcl_U.extparams[4] = 6.500;//phi_p theta_p //7.0
-  gru_quadcl_U.extparams[5] = 1.000;//0.500;//phi_i theta_i //1.0//0.5
+  Arduino_250_U.extparams[4] = 6.500;//phi_p theta_p //7.0
+  Arduino_250_U.extparams[5] = 1.000;//0.500;//phi_i theta_i //1.0//0.5
   
   q0=1;
   q1=0;
@@ -198,45 +200,45 @@ void fast_loop() {
   
   
   //External parameters
-  gru_quadcl_U.rx[0]=rc[2]*10;
-  gru_quadcl_U.rx[2]=rc[0]*10;
-  gru_quadcl_U.rx[3]=rc[1]*10;
-  gru_quadcl_U.rx[4]=rc[3]*10;
-  gru_quadcl_U.rx[5]=rc[4]*10;
+  Arduino_250_U.rx[0]=rc[2]*10;
+  Arduino_250_U.rx[2]=rc[0]*10;
+  Arduino_250_U.rx[3]=rc[1]*10;
+  Arduino_250_U.rx[4]=rc[3]*10;
+  Arduino_250_U.rx[5]=rc[4]*10;
 
-  gru_quadcl_U.rates[0] =-(gy-gyro_offset_y);
-  gru_quadcl_U.rates[1] = gx-gyro_offset_x;
-  gru_quadcl_U.rates[2] = gz-gyro_offset_z;
+  Arduino_250_U.rates[0] =-(gy-gyro_offset_y);
+  Arduino_250_U.rates[1] = gx-gyro_offset_x;
+  Arduino_250_U.rates[2] = gz-gyro_offset_z;
   
-  gru_quadcl_U.ahrs[0] = roll;//roll
-  gru_quadcl_U.ahrs[1] = pitch;//pitch
-  gru_quadcl_U.ahrs[2] = yaw;//yaw
+  Arduino_250_U.ahrs[0] = roll;//roll
+  Arduino_250_U.ahrs[1] = pitch;//pitch
+  Arduino_250_U.ahrs[2] = yaw;//yaw
           
   
   //Control law
-  gru_quadcl_step();
+  Arduino_250_step();
   
  
   //Motors values
-  Servo_2.writeMicroseconds(constrain(gru_quadcl_Y.servos[2]/10,1000,1900));//arrière droit
-  Servo_1.writeMicroseconds(constrain(gru_quadcl_Y.servos[0]/10,1000,1900));//avant gauche
-  Servo_3.writeMicroseconds(constrain(gru_quadcl_Y.servos[3]/10,1000,1900));//arrière gauche
-  Servo_4.writeMicroseconds(constrain(gru_quadcl_Y.servos[1]/10,1000,1900));//avant droit
+  Servo_2.writeMicroseconds(constrain(Arduino_250_Y.servos[2]/10,1000,1900));//arrière droit
+  Servo_1.writeMicroseconds(constrain(Arduino_250_Y.servos[0]/10,1000,1900));//avant gauche
+  Servo_3.writeMicroseconds(constrain(Arduino_250_Y.servos[3]/10,1000,1900));//arrière gauche
+  Servo_4.writeMicroseconds(constrain(Arduino_250_Y.servos[1]/10,1000,1900));//avant droit
 
   
-  //Serial.print(roll);
+  //Serial.print(gru_quadcl_U.ahrs[0]);
   //Serial.print(" ");
-  //Serial.print(pitch);
+  //Serial.print(gru_quadcl_U.ahrs[1]);
   //Serial.print(" ");
-  //Serial.println(yaw);
+  //Serial.println(gru_quadcl_U.ahrs[2]);
   //Serial.print(" ");
-  //Serial.print(gy-gyro_offset_y);
+  //Serial.print(gru_quadcl_U.rates[0]);
   //Serial.print(" ");
-  //Serial.print(gx-gyro_offset_x);
+  //Serial.print(gru_quadcl_U.rates[1]);
   //Serial.print(" ");
-  //Serial.print(gz-gyro_offset_z);
+  //Serial.print(gru_quadcl_U.rates[2]);
   //Serial.print(" ");
-  //Serial.println(G_Dt*10000);
+  //Serial.println(G_Dt, 4);
   //Serial.println(" ");
    
   //Serial.print(" ");

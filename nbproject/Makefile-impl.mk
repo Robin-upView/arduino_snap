@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=blink
+PROJECTNAME=arduino_snap
 
 # Active Configuration
 DEFAULTCONF=Debug

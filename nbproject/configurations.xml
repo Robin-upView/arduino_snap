@@ -59,7 +59,7 @@
             <pElem>/usr/local/arduino1.0/libraries/Wire/utility</pElem>
             <pElem>/usr/local/arduino1.0/libraries/MPU6050</pElem>
             <pElem>/usr/local/arduino1.0/libraries/I2Cdev</pElem>
-            <pElem>../control_law</pElem>
+            <pElem>../arduino_control_law</pElem>
             <pElem>/usr/local/arduino1.0/libraries/Servo</pElem>
             <pElem>/usr/local/arduino1.0/libraries/MS561101BA</pElem>
           </incDir>
@@ -80,19 +80,19 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduino_corelib.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../control_law"
+              <makeArtifact PL="../arduino_control_law"
                             CT="3"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../control_law"
+                            WD="../arduino_control_law"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcontrol_law.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libarduino_control_law.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>-Os -Wl,--gc-sections -mmcu=atmega2560</commandLine>
         </linkerTool>

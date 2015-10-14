@@ -10,7 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../arduino_corelib</make-dep-project>
-                <make-dep-project>../control_law</make-dep-project>
+                <make-dep-project>../arduino_control_law</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

@@ -15,8 +15,8 @@ build/Debug/Arduino-MacOSX/main.o: main.cpp \
  /usr/local/arduino1.0/libraries/I2Cdev/I2Cdev.h \
  /usr/local/arduino1.0/libraries/MS561101BA/MS561101BA.h \
  /usr/local/arduino1.0/libraries/Servo/Servo.h \
- ../control_law/Arduino_250.h ../control_law/rtwtypes.h \
- ../control_law/Arduino_250_types.h
+ ../arduino_control_law/Arduino_250.h ../arduino_control_law/rtwtypes.h \
+ ../arduino_control_law/Arduino_250_types.h
 
 /usr/local/arduino1.0/arduino/cores/arduino/Arduino.h:
 
@@ -50,8 +50,8 @@ build/Debug/Arduino-MacOSX/main.o: main.cpp \
 
 /usr/local/arduino1.0/libraries/Servo/Servo.h:
 
-../control_law/Arduino_250.h:
+../arduino_control_law/Arduino_250.h:
 
-../control_law/rtwtypes.h:
+../arduino_control_law/rtwtypes.h:
 
-../control_law/Arduino_250_types.h:
+../arduino_control_law/Arduino_250_types.h:
